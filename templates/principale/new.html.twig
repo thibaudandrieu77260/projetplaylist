@@ -1,0 +1,15 @@
+{# templates/principale/new.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une Playlist{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Créer une Playlist</h1>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-custom" type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+    <a class="btn btn-secondary mt-3" href="{{ path('principale') }}">Retour à la liste</a>
+</div>
+{% endblock %}

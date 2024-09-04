@@ -1,0 +1,21 @@
+{# templates/configuration/configuration.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Configuration du compte{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Configuration du compte</h1>
+
+        {{ form_start(form) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.password, {
+                'label': 'Nouveau mot de passe'
+            }) }}
+            {{ form_row(form.roles) }}
+
+            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

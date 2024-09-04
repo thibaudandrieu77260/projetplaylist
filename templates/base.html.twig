@@ -1,0 +1,140 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mon Application{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- Inclusion de Bootstrap 5 et du fichier CSS personnalisé -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <style>
+            body {
+                background-color: #f8f9fa;
+                font-family: 'Arial', sans-serif;
+            }
+            .navbar {
+                background-color: #343a40;
+                border-radius: 0 0 25px 25px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .navbar-brand img {
+                height: 40px;
+                margin-right: 10px;
+            }
+            .navbar-nav .nav-link {
+                color: #ffffff;
+                transition: color 0.3s;
+            }
+            .navbar-nav .nav-link:hover {
+                color: #ffc107;
+            }
+            .content-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .sidebar {
+                flex: 0 0 100%;
+                max-width: 200px;
+                margin: auto;
+            }
+            .sidebar img {
+                width: 100%;
+                height: auto;
+                border-radius: 15px;
+            }
+            .main-content {
+                flex-grow: 1;
+                margin: 0 20px;
+                width: 100%;
+                max-width: 500px;
+            }
+            footer {
+                background-color: #343a40;
+                color: #ffffff;
+                padding: 15px 0;
+                border-radius: 25px 25px 0 0;
+            }
+            footer img {
+                height: 30px;
+                margin-right: 5px;
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+    {% block nav %}
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('accueil') }}">
+                    <img src="{{ asset('images/music.png') }}" alt="Logo"> Mon Application
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('configuration') }}">Config du compte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('login') }}">Authentification du compte</a>
+                        </li>
+                        {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('principale') }}">Page principale</a>
+                        </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('gestion_utilisateurs') }}">Gestion des Utilisateurs</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+
+    <div class="container mt-5">
+        <div class="content-wrapper">
+            <!-- Image à gauche -->
+            <div class="sidebar">
+                <img src="{{ asset('images/music2.png') }}" alt="Sidebar Image Left">
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="main-content">
+                {% block body %}{% endblock %}
+            </div>
+
+            <!-- Image à droite -->
+            <div class="sidebar">
+                <img src="{{ asset('images/music3.png') }}" alt="Sidebar Image Right">
+            </div>
+        </div>
+    </div>
+
+    {% block footer %}
+        <footer class="text-center mt-auto">
+            <div>
+                <img src="{{ asset('images/music.png') }}" alt="Logo Footer">
+                &copy; {{ "now"|date("Y") }} Mon Application. Tous droits réservés.
+            </div>
+        </footer>
+    {% endblock %}
+    
+    {% block javascripts %}
+        <!-- Inclusion des scripts Bootstrap 5 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+    {% endblock %}
+</body>
+</html>

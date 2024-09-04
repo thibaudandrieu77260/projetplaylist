@@ -1,0 +1,22 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+app_register:
+    path: /register
+    controller: App\Controller\registerController::register
+
+app_accueil:
+    path: /accueil
+    controller: App\Controller\accueilController::accueil
+
+app_login:
+    path: /login
+    controller: App\Controller\loginController::login
+
+app_verify_email:
+    path: '/verify/email'
+    controller: 'App\Controller\registerController::verifyUserEmail'
+    methods: ['GET', 'POST']

@@ -1,0 +1,19 @@
+{# templates/principale/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Playlist{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Détails de la Playlist</h1>
+    <ul>
+        <li>ID: {{ playlist.id }}</li>
+        <li>Nom: {{ playlist.nom }}</li>
+        <li>Type: {{ playlist.type }}</li>
+        <li>Taille: {{ playlist.taille }}</li>
+        <li>Langue: {{ playlist.langue }}</li>
+    </ul>
+    <a class="btn btn-primary" href="{{ path('principale_edit', {'id': playlist.id}) }}">Modifier</a>
+    <a class="btn btn-secondary" href="{{ path('principale') }}">Retour à la liste</a>
+</div>
+{% endblock %}

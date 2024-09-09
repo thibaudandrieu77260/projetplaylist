@@ -20,3 +20,7 @@ app_verify_email:
     path: '/verify/email'
     controller: 'App\Controller\registerController::verifyUserEmail'
     methods: ['GET', 'POST']
+
+gestion_utilisateurs:
+    path: /gestion_utilisateurs
+    controller: 'App\Controller\adminController::gestionUtilisateurs'

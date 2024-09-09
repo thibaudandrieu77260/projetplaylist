@@ -6,6 +6,7 @@ use App\Entity\Musique;
 use App\Form\PlaylistType;
 use App\Repository\PlaylistRepository;
 use App\Repository\MusiqueRepository;
+use App\Service\WikipediaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,13 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PlaylistController extends AbstractController
 {
+    private WikipediaService $wikipediaService;
+
+    public function __construct(WikipediaService $wikipediaService)
+    {
+        $this->wikipediaService = $wikipediaService;
+    }
+
     #[Route('/Playlist', name: 'Playlist')]
     public function index(PlaylistRepository $playlistRepository, MusiqueRepository $musiqueRepository): Response
     {
@@ -102,14 +110,17 @@ class PlaylistController extends AbstractController
         $musique = $musiqueRepository->find($musiqueId);
 
         if ($musique && strtolower($userAnswer) === strtolower($musique->getArtiste())) {
+            $biography = $this->wikipediaService->getBiography($musique->getArtiste());
             $result = 'Bonne réponse !';
         } else {
+            $biography = null;
             $result = 'Mauvaise réponse ! L\'artiste correct était ' . $musique->getArtiste();
         }
 
         return $this->render('Playlist/quiz_result.html.twig', [
             'result' => $result,
             'musique' => $musique,
+            'biography' => $biography,
         ]);
     }
 }

@@ -37,19 +37,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private $attempts = 0;
-
-    public function getAttempts(): ?int
-    {
-        return $this->attempts !== null ? (int) $this->attempts : null;
-    }
-
-    public function setAttempts(?int $attempts): static
-    {
-        $this->attempts = $attempts;
-        return $this;
-    }
 
     /* public function incrementAttempts(): void
     {

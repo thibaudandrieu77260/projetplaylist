@@ -9,8 +9,17 @@
 
     <p>{{ result }}</p>
     
-    <p>Musique : <strong>{{ musique.titre }}</strong></p>
-    <p>Artiste correct : <strong>{{ musique.artiste }}</strong></p>
+    {% if musique is not null %}
+        <p>Musique : <strong>{{ musique.titre }}</strong></p>
+        <p>Artiste correct : <strong>{{ musique.artiste }}</strong></p>
+    {% endif %}
+
+    {% if biography is not null %}
+        <div class="mt-4">
+            <h2>Biographie de l'artiste</h2>
+            <p>{{ biography }}</p>
+        </div>
+    {% endif %}
 
     <a class="btn btn-secondary" href="{{ path('Playlist') }}">Retourner à la liste des Playlists</a>
 </div>

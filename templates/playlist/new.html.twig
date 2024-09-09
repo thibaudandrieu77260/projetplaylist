@@ -1,0 +1,40 @@
+{# templates/playlist/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle playlist{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle playlist</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.nom) }}
+    {{ form_row(form.type) }}
+    {{ form_row(form.langue) }}
+    {{ form_row(form.taille) }}
+
+    <h2>Ajouter des musiques</h2>
+    <div id="musiques">
+        {{ form_widget(form.musiques) }}
+    </div>
+
+    <button type="button" id="add-musique">Ajouter une musique</button>
+
+    {{ form_row(form.submit) }}
+
+    {{ form_end(form) }}
+
+    <script>
+        document.getElementById('add-musique').addEventListener('click', function() {
+            var collectionHolder = document.querySelector('#musiques');
+            var prototype = collectionHolder.dataset.prototype;
+            var index = collectionHolder.dataset.index;
+
+            var newForm = prototype.replace(/__name__/g, index);
+            collectionHolder.dataset.index = parseInt(index) + 1;
+
+            collectionHolder.insertAdjacentHTML('beforeend', newForm);
+        });
+    </script>
+{% endblock %}

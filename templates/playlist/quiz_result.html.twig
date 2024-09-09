@@ -1,0 +1,17 @@
+{# templates/Playlist/quiz_result.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultat du Quiz{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Résultat du Quiz</h1>
+
+    <p>{{ result }}</p>
+    
+    <p>Musique : <strong>{{ musique.titre }}</strong></p>
+    <p>Artiste correct : <strong>{{ musique.artiste }}</strong></p>
+
+    <a class="btn btn-secondary" href="{{ path('Playlist') }}">Retourner à la liste des Playlists</a>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-{# templates/principale/edit.html.twig #}
+{# templates/Playlist/edit.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Modifier la Playlist{% endblock %}
@@ -10,6 +10,6 @@
         {{ form_widget(form) }}
         <button class="btn btn-custom" type="submit">Enregistrer les modifications</button>
     {{ form_end(form) }}
-    <a class="btn btn-secondary mt-3" href="{{ path('principale') }}">Retour à la liste</a>
+    <a class="btn btn-secondary mt-3" href="{{ path('Playlist') }}">Retour à la liste</a>
 </div>
 {% endblock %}

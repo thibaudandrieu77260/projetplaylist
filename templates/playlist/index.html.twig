@@ -1,4 +1,4 @@
-{# templates/principale/index.html.twig #}
+{# templates/Playlist/index.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des Playlists{% endblock %}
@@ -6,7 +6,9 @@
 {% block body %}
 <div class="container mt-5">
     <h1>Liste des Playlists</h1>
-    <a class="btn btn-custom mb-3" href="{{ path('principale_new') }}">Créer une nouvelle Playlist</a>
+    <a class="btn btn-custom mb-3" href="{{ path('Playlist_new') }}">Créer une nouvelle Playlist</a>
+    <a class="btn btn-secondary mb-3" href="{{ path('musique_index') }}">Voir les Musiques</a>
+    
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -28,9 +30,9 @@
                     <td>{{ playlist.taille }}</td>
                     <td>{{ playlist.langue }}</td>
                     <td class="d-flex">
-                        <a class="btn btn-info btn-sm me-2" href="{{ path('principale_show', {'id': playlist.id}) }}">Voir</a>
-                        <a class="btn btn-warning btn-sm me-2" href="{{ path('principale_edit', {'id': playlist.id}) }}">Modifier</a>
-                        <form action="{{ path('principale_delete', {'id': playlist.id}) }}" method="post" style="display:inline;">
+                        <a class="btn btn-info btn-sm me-2" href="{{ path('Playlist_show', {'id': playlist.id}) }}">Voir</a>
+                        <a class="btn btn-warning btn-sm me-2" href="{{ path('Playlist_edit', {'id': playlist.id}) }}">Modifier</a>
+                        <form action="{{ path('Playlist_delete', {'id': playlist.id}) }}" method="post" style="display:inline;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ playlist.id) }}">
                             <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
                         </form>
@@ -40,5 +42,19 @@
             </tbody>
         </table>
     </div>
+
+    <hr>
+
+    <h2>Quiz : Trouvez l'artiste !</h2>
+    <p>Devinez l'artiste de la musique suivante : <strong>{{ quiz_musique.titre }}</strong></p>
+
+    <form action="{{ path('Playlist_quiz') }}" method="post">
+        <input type="hidden" name="musique_id" value="{{ quiz_musique.id }}">
+        <div class="mb-3">
+            <label for="artist" class="form-label">Nom de l'artiste :</label>
+            <input type="text" class="form-control" id="artist" name="artist" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+    </form>
 </div>
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Musique{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Détails de la Musique</h1>
+
+    <ul>
+        <li>ID: {{ musique.id }}</li>
+        <li>Titre: {{ musique.titre }}</li>
+        <li>Artiste: {{ musique.artiste }}</li>
+        <li>Album: {{ musique.album }}</li>
+        <li>Durée: {{ musique.duree }} secondes</li>
+        {% if musique.youtubeUrl %}
+            <li>
+                <strong>Écouter sur YouTube :</strong><br>
+                {# Extraction de l'ID de la vidéo #}
+                {% set videoId = musique.youtubeUrl | replace({'https://www.youtube.com/watch?v=': '', 'https://youtu.be/': '', 'https://www.youtube.com/embed/': ''}) %}
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ videoId }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <br>
+                <a href="{{ musique.youtubeUrl }}" target="_blank">Voir sur YouTube</a>
+            </li>
+        {% else %}
+            <li>Pas de lien YouTube disponible.</li>
+        {% endif %}
+    </ul>
+
+    <a class="btn btn-primary" href="{{ path('musique_edit', {'id': musique.id}) }}">Modifier</a>
+    <a class="btn btn-secondary" href="{{ path('musique_index') }}">Retour à la liste</a>
+</div>
+{% endblock %}

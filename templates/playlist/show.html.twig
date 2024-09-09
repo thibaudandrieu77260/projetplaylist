@@ -1,0 +1,41 @@
+{# templates/Playlist/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Playlist{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Détails de la Playlist</h1>
+    <ul>
+        <li>ID: {{ playlist.id }}</li>
+        <li>Nom: {{ playlist.nom }}</li>
+        <li>Type: {{ playlist.type }}</li>
+        <li>Taille: {{ playlist.taille }}</li>
+        <li>Langue: {{ playlist.langue }}</li>
+    </ul>
+
+    <h2>Liste des Musiques</h2>
+    {% if playlist.musiques is not empty %}
+        <ul>
+            {% for musique in playlist.musiques %}
+                <li>
+                    <strong>{{ musique.titre }}</strong> par {{ musique.artiste }} <br>
+                    Album: {{ musique.album }} <br>
+                    Durée: {{ musique.duree }} secondes <br>
+                    {% if musique.youtubeUrl %}
+                        <a href="{{ musique.youtubeUrl }}" target="_blank">Écouter sur YouTube</a>
+                    {% else %}
+                        Pas de lien YouTube disponible.
+                    {% endif %}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune musique dans cette playlist.</p>
+    {% endif %}
+
+    <a class="btn btn-primary" href="{{ path('Playlist_edit', {'id': playlist.id}) }}">Modifier</a>
+    <a class="btn btn-secondary" href="{{ path('Playlist') }}">Retour à la liste</a>
+</div>
+{% endblock %}

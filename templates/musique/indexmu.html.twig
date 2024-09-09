@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Musiques{% endblock %}
+
+{% block body %}
+    <h1>Liste des Musiques</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Artiste</th>
+                <th>Album</th>
+                <th>Durée</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for musique in musiques %}
+                <tr>
+                    <td>{{ musique.id }}</td>
+                    <td>{{ musique.titre }}</td>
+                    <td>{{ musique.artiste }}</td>
+                    <td>{{ musique.album }}</td>
+                    <td>{{ musique.duree }} sec</td>
+                    <td>
+                        <a href="{{ path('musique_show', {'id': musique.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('musique_edit', {'id': musique.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                        <form method="post" action="{{ path('musique_delete', {'id': musique.id}) }}" style="display:inline-block;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ musique.id) }}">
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément?');">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('musique_new') }}" class="btn btn-success">Ajouter une nouvelle Musique</a>
+{% endblock %}

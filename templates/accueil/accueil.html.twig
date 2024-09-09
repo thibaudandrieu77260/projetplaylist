@@ -12,7 +12,7 @@
         <p>Connectez-vous pour commencer à utiliser PlaylistCreator</p>
         <a class="btn btn-custom btn-dark" href="{{ path('login') }}" role="button">Se connecter</a>
         {% if is_granted('ROLE_USER') %}
-        <a class="btn btn-custom btn-dark" href="{{ path('principale') }}" role="button">Entrer</a>
+        <a class="btn btn-custom btn-dark" href="{{ path('Playlist') }}" role="button">Entrer</a>
         {% endif %}
     </div>
 </div>
